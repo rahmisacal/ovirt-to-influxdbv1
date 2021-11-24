@@ -1,0 +1,40 @@
+kind: BuildConfig
+apiVersion: build.openshift.io/v1
+metadata:
+  name: ovirt-to-influxfb
+  namespace: cloud-operations
+  labels:
+    app:  ovirt-to-influxfb
+    build:  ovirt-to-influxfb
+spec:
+  successfulBuildsHistoryLimit: 3
+  failedBuildsHistoryLimit: 3
+  nodeSelector: null
+  output:
+    to:
+      kind: DockerImage
+      name: ovirt-to-influxfb:0.0.1
+    pushSecret:
+      name: jenkins-artifactory
+  postCommit: {}
+  resources:
+    limits:
+      cpu: 750m
+      memory: 1Gi
+    requests:
+      cpu: 50m
+      memory: 512Mi
+  runPolicy: Serial
+  source:
+    type: Git
+    git:
+      uri: https://github.com/rahmisacal/ovirt-to-influxdbv1.git
+      ref: master
+    sourceSecret:
+      name: jenkins-git
+  strategy:
+    type: Docker
+    dockerStrategy:
+      dockerfilePath: Dockerfile
+      pullSecret:
+        name: jenkins-artifactory

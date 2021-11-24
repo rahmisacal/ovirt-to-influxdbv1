@@ -1,0 +1,6 @@
+influxdb:
+  Url: "xxxx"
+  Port: xxx
+  Measurement: "Hosts"
+  Database: "ovirt-rest-api"
+  RetentionPolicy: "autogen"
